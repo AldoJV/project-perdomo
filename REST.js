@@ -11,6 +11,35 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
         res.json({"Message" : "Praise the Sun"});
     });
 
+    //Listado Articulos
+    router.get("/articulos",function(req,res){
+        var query = "SELECT e_articulo FROM ??";
+        var table = ["articulo"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Users" : rows});
+            }
+        });
+    });
+
+    //Detalle Articulo individual
+    router.get("/articulos/:i_articulo",function(req,res){
+        var query = "SELECT * FROM ?? WHERE ??=?";
+        var table = ["articulo","i_articulo",req.params.i_articulo];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Users" : rows});
+            }
+        });
+    });
+
+//EXAMPLE ONES
     router.get("/users",function(req,res){
         var query = "SELECT * FROM ??";
         var table = ["user_login"];
@@ -23,6 +52,7 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
             }
         });
     });
+
 
     router.get("/users/:user_id",function(req,res){
         var query = "SELECT * FROM ?? WHERE ??=?";
@@ -75,6 +105,7 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
             }
         });
     });
+// Example END
 }
 
 module.exports = REST_ROUTER;
