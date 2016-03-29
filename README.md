@@ -17,5 +17,7 @@
 	```
 	npm install
 	```
+3. correr el script bd_backup.sql en mysql para crear la base de datos correcta
+
 - [ ] Continuar lista a medida que se avanza
 
