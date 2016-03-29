@@ -17,5 +17,5 @@
 	```
 	npm install
 	```
-[ ] Continuar lista a medida que se avanza
+- [ ] Continuar lista a medida que se avanza
 
