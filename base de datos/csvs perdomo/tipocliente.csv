@@ -1,5 +1,3 @@
-i_moneda;e_moneda
-MXN;Peso Mexicano
-USD;Dólar Americano
-EUR;Euro
-GBP;Libra Esterlina
+i_tipocliente;e_tipocliente
+1;Normal
+2;VIP
