@@ -8,7 +8,7 @@ function REST_ROUTER(router,connection,md5) {
 REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
     var self = this;
     router.get("/",function(req,res){
-        res.json({"Message" : "Hello World !"});
+        res.json({"Message" : "Praise the Sun"});
     });
 
     router.get("/users",function(req,res){
