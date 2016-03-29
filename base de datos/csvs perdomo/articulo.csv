@@ -1,0 +1,21 @@
+i_articulo;e_articulo;i_plataforma;i_tipo;i_formato;q_precioVenta;q_precioCompra
+1;GCN - Resident Evil 4;GCN;GAM;F;400;200
+2;PC - Resident Evil 4;PC;GAM;D;250;
+3;XBONE - Dark Souls III;XBONE;GAM;F;999;450
+4;SPS4 - Dark Souls III;SPS4;GAM;F;999;450
+5;PC - Dark Souls III;PC;GAM;D;509;
+6;PC - Undertale;PC;GAM;D;109;
+7;WIIU  - Super Smash Bros;WIIU;GAM;F;1099;500
+8;3DS - Super Smash Bros;3DS;GAM;F;999;450
+9;XBONE - Consola 500GB;XBONE;CON;F;6999;2000
+10;SPS4 - Consola Uncharted;SPS4;CON;F;7899;2400
+11;WIIU - Consola Smash;WIIU;CON;F;7000;2000
+12;3DS - Consola New3dsXL;3DS;CON;F;3000;1500
+13;3DS - Consola 2DS;3DS;CON;F;1899;800
+14;XBONE - Control Negro;XBONE;ACC;F;899;
+15;SPS4 - Control Negro;SPS4;ACC;F;899;
+16;WIIU - Pro Controller;WIIU;ACC;F;999;
+17;GCN - Control Smash;GCN;ACC;F;549;
+18;Suscripcion Xbox Live 12;NA;CRD;F;999;
+19;Suscripcion PSPlus 12;NA;CRD;F;799;
+20;Amiibo de Andres Manuel Lopez Obrador;NA;PRM;F;299;
