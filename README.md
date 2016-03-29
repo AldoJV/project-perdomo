@@ -18,6 +18,10 @@
 	npm install
 	```
 3. correr el script bd_backup.sql en mysql para crear la base de datos correcta
-
+4. correr el servidor desde la carpeta del proyecto
+	```
+	npm start
+	```
+- Se puede usar [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop/related) para probar los servicios 
 - [ ] Continuar lista a medida que se avanza
 
