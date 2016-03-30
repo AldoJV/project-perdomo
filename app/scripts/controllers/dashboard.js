@@ -12,5 +12,6 @@ angular.module('yapp')
   	$scope.games = games.data.data;
   	console.log($scope.games);
     $scope.$state = $state;
+    console.log($scope.$state);
 
   });
