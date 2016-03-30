@@ -35,7 +35,12 @@
       url: '/dashboard',
       parent: 'base',
       templateUrl: 'views/dashboard.html',
-      controller: 'DashboardCtrl'
+      controller: 'DashboardCtrl',
+      resolve: {
+        games: function(GameService){
+          return GameService.get();
+        }
+      }
   })
     .state('overview', {
         url: '/overview',
