@@ -6815,14 +6815,6 @@ snap-content a:active,
 snap-content a:focus {
   color: white;
 }
-snap-content .panel-footer a {
-  color: #1e1e1e;
-}
-snap-content .panel-footer a:hover,
-snap-content .panel-footer a:active,
-snap-content .panel-footer a:focus {
-  color: #1e1e1e;
-}
 snap-content .menutoggle .fa {
   position: absolute;
   left: 15px;
@@ -6878,6 +6870,9 @@ snap-drawer ul.snap-ul li a:hover {
 }
 * a:hover {
   cursor: pointer;
+}
+.mask {
+  background-color: rgba(50, 50, 50, 0.5);
 }
 .input-underline {
   background: none;
