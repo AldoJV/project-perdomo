@@ -16,6 +16,7 @@
 2. instalar dependencias
 	```
 	npm install
+	bower install
 	```
 3. correr el script bd_backup.sql en mysql para crear la base de datos correcta
 4. correr el servidor desde la carpeta del proyecto
