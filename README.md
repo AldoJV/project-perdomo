@@ -27,7 +27,7 @@
 	```
 	gulp serve
 	```
--la API corre en puerto 3000 y el front en el 8000
+- la API corre en puerto 3000 y el front en el 8000
 - Se puede usar [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop/related) para probar los servicios 
 - [ ] Continuar lista a medida que se avanza
 
