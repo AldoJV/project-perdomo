@@ -5,14 +5,22 @@ function REST_ROUTER(router,connection,md5) {
     self.handleRoutes(router,connection,md5);
 }
 
+function setCORS(res){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    return res;
+}
+
 REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
     var self = this;
+
     router.get("/",function(req,res){
         res.json({"Message" : "Praise the Sun"});
     });
 
     //Listado Articulos
     router.get("/articulos",function(req,res){
+        setCORS(res);
         var query = "SELECT e_articulo FROM ??";
         var table = ["articulo"];
         query = mysql.format(query,table);

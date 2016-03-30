@@ -29,6 +29,8 @@ REST.prototype.connectMysql = function() {
     });
 }
 
+
+
 REST.prototype.configureExpress = function(connection) {
       var self = this;
       app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,12 +43,12 @@ REST.prototype.configureExpress = function(connection) {
 
 REST.prototype.startServer = function() {
       app.listen(3000,function(){
-          console.log("All right ! I am alive at Port 3000.");
+          console.log("Funcionando en puerto 3000.");
       });
 }
 
 REST.prototype.stop = function(err) {
-    console.log("ISSUE WITH MYSQL \n" + err);
+    console.log("Problema con MYSQL \n" + err);
     process.exit(1);
 }
 
