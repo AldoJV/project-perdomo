@@ -5,5 +5,10 @@ angular.module('yapp')
       	return response;
     });
    }
+   this.getCategories = function() {
+   	return $http.get("http://localhost:3000/api/categorias/").then(function(response) {
+      	return response;
+    }); 	
+   }
 });
 

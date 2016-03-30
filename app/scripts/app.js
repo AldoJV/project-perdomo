@@ -37,8 +37,8 @@
       templateUrl: 'views/dashboard.html',
       controller: 'DashboardCtrl',
       resolve: {
-        games: function(GameService){
-          return GameService.get();
+        categories: function(GameService){
+          return GameService.getCategories();
         }
       }
   })

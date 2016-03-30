@@ -47,6 +47,21 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
         });
     });
 
+    //Listado categorias
+    router.get("/categorias",function(req,res){
+        setCORS(res);
+        var query = "SELECT * FROM ??";
+        var table = ["tipo_articulo"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "data" : rows});
+            }
+        });
+    });
+
 //EXAMPLE ONES
     router.get("/users",function(req,res){
         var query = "SELECT * FROM ??";
