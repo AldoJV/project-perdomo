@@ -45,32 +45,6 @@ INSERT INTO `almacen` VALUES (1,'Almacen Tlane','Calle tal numero 6',54054),(2,'
 /*!40000 ALTER TABLE `almacen` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `almacen_inventario`
---
-
-DROP TABLE IF EXISTS `almacen_inventario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `almacen_inventario` (
-  `i_almacen` int(5) NOT NULL,
-  `inventario_i_articulo` int(10) NOT NULL,
-  PRIMARY KEY (`i_almacen`,`inventario_i_articulo`),
-  KEY `fk_almacen_has_inventario_inventario1_idx` (`inventario_i_articulo`),
-  KEY `fk_almacen_has_inventario_almacen1_idx` (`i_almacen`),
-  CONSTRAINT `fk_almacen_has_inventario_almacen1` FOREIGN KEY (`i_almacen`) REFERENCES `almacen` (`i_almacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_almacen_has_inventario_inventario1` FOREIGN KEY (`inventario_i_articulo`) REFERENCES `inventario` (`i_articulo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `almacen_inventario`
---
-
-LOCK TABLES `almacen_inventario` WRITE;
-/*!40000 ALTER TABLE `almacen_inventario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `almacen_inventario` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `articulo`
@@ -81,19 +55,24 @@ DROP TABLE IF EXISTS `articulo`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `articulo` (
   `i_articulo` int(10) NOT NULL AUTO_INCREMENT,
-  `e_articulo` varchar(45) NOT NULL,
+  `n_articulo` varchar(45) NOT NULL,
   `i_plataforma` varchar(5) NOT NULL,
   `i_tipo` varchar(3) NOT NULL,
   `i_formato` varchar(1) NOT NULL,
   `q_precioVenta` float NOT NULL,
   `q_precioCompra` float DEFAULT NULL,
+  `e_articulo` varchar(140) NOT NULL,
+  `i_clasificacion` varchar(2) DEFAULT NULL,
+  `i_genero` varchar(3) DEFAULT NULL,
   PRIMARY KEY (`i_articulo`),
   KEY `fk_articulo_tipo_idx` (`i_tipo`),
   KEY `fk_articulo_plat_idx` (`i_plataforma`),
   KEY `fk_articulo_formato_idx` (`i_formato`),
   CONSTRAINT `fk_articulo_formato` FOREIGN KEY (`i_formato`) REFERENCES `formato` (`i_formato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_articulo_plat` FOREIGN KEY (`i_plataforma`) REFERENCES `plataforma` (`i_plataforma`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_articulo_tipo` FOREIGN KEY (`i_tipo`) REFERENCES `tipo_articulo` (`i_tipo_articulo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_articulo_tipo` FOREIGN KEY (`i_tipo`) REFERENCES `tipo_articulo` (`i_tipo_articulo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_articulo_clas` FOREIGN KEY (`i_clasificacion`) REFERENCES `clasificacion` (`i_clasificacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_articulo_gen` FOREIGN KEY (`i_genero`) REFERENCES `genero` (`i_genero`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -103,8 +82,33 @@ CREATE TABLE `articulo` (
 
 LOCK TABLES `articulo` WRITE;
 /*!40000 ALTER TABLE `articulo` DISABLE KEYS */;
-INSERT INTO `articulo` VALUES (1,'GCN - Resident Evil 4','GCN','GAM','F',400,200),(2,'PC - Resident Evil 4','PC','GAM','D',250,0),(3,'XBONE - Dark Souls III','XBONE','GAM','F',999,450),(4,'SPS4 - Dark Souls III','SPS4','GAM','F',999,450),(5,'PC - Dark Souls III','PC','GAM','D',509,0),(6,'PC - Undertale','PC','GAM','D',109,0),(7,'WIIU  - Super Smash Bros','WIIU','GAM','F',1099,500),(8,'3DS - Super Smash Bros','3DS','GAM','F',999,450),(9,'XBONE - Consola 500GB','XBONE','CON','F',6999,2000),(10,'SPS4 - Consola Uncharted','SPS4','CON','F',7899,2400),(11,'WIIU - Consola Smash','WIIU','CON','F',7000,2000),(12,'3DS - Consola New3dsXL','3DS','CON','F',3000,1500),(13,'3DS - Consola 2DS','3DS','CON','F',1899,800),(14,'XBONE - Control Negro','XBONE','ACC','F',899,0),(15,'SPS4 - Control Negro','SPS4','ACC','F',899,0),(16,'WIIU - Pro Controller','WIIU','ACC','F',999,0),(17,'GCN - Control Smash','GCN','ACC','F',549,0),(18,'Suscripcion Xbox Live 12','NA','CRD','F',999,0),(19,'Suscripcion PSPlus 12','NA','CRD','F',799,0),(20,'Amiibo de Andres Manuel Lopez Obrador','NA','PRM','F',299,0);
+INSERT INTO `articulo` VALUES (1,'GCN - Resident Evil 4','GCN','GAM','F',400,200,'El mejor juego de todos los tiempos','M','ACC'),(2,'PC - Resident Evil 4','PC','GAM','D',250,0,'El mejor juego de todos los tiempos, remasterizado para PC','M','ACC'),(3,'XBONE - Dark Souls III','XBONE','GAM','F',999,450,'La continuación de esta gran saga aclamada por su lore y su dificultad','M','ACC'),(4,'SPS4 - Dark Souls III','SPS4','GAM','F',999,450,'La continuación de esta gran saga aclamada por su lore y su dificultad','M','ACC'),(5,'PC - Dark Souls III','PC','GAM','D',509,0,'La continuación de esta gran saga aclamada por su lore y su dificultad','M','ACC'),(6,'PC - Undertale','PC','GAM','D',109,0,'Excelente juego RPG que te hará sentir sentimientos','E','RPG'),(7,'WIIU  - Super Smash Bros','WIIU','GAM','F',1099,500,'Fantastico y loco juego de peleas con las estrellas de Nintendo','E1','PEL'),(8,'3DS - Super Smash Bros','3DS','GAM','F',999,450,'Fantastico y loco juego de peleas con las estrellas de Nintendo','E1','PEL'),(9,'XBONE - Consola 500GB','XBONE','CON','F',6999,2000,'Consola de nueva generación de Microsoft, el mejor centro de entretenimiento',NULL,NULL),(10,'SPS4 - Consola Uncharted','SPS4','CON','F',7899,2400,'La nueva generación de Sony está aqui, incluye el juego de Uncharted',NULL,NULL),(11,'WIIU - Consola Smash','WIIU','CON','F',7000,2000,'La ultima consola de Nintendo te lleva a disfrutar sus franquicias al máximo, incluye Super Smash Bros',NULL,NULL),(12,'3DS - Consola New3dsXL','3DS','CON','F',3000,1500,'Lo mejor de Nintendo en portatiles, disfruta tus juegos donde sea',NULL,NULL),(13,'3DS - Consola 2DS','3DS','CON','F',1899,800,'El poderoso 3ds en su version economica, disfruta del 3ds sin gastar mucho',NULL,NULL),(14,'XBONE - Control Negro','XBONE','ACC','F',899,0,'Destruye a tu competencia con este elegante y ergonomico control',NULL,NULL),(15,'SPS4 - Control Negro','SPS4','ACC','F',899,0,'Sigue jugando con el increible DualShock4, el mejor control de Sony hasta hoy',NULL,NULL),(16,'WIIU - Pro Controller','WIIU','ACC','F',999,0,'Disfruta de la precision que el Pro controller ofrece',NULL,NULL),(17,'GCN - Control Smash','GCN','ACC','F',549,0,'Regresa el mejor control de nintendo, se el mejor en Smash con esta reliquia',NULL,NULL),(18,'Suscripcion Xbox Live 12','NA','CRD','F',999,0,'Extiende tu suscripcion a Xbox Live por un año',NULL,NULL),(19,'Suscripcion PSPlus 12','NA','CRD','F',799,0,'No dejes de gozar de los beneficios de PS+',NULL,NULL),(20,'Amiibo de Andres Manuel Lopez Obrador','NA','PRM','F',299,0,'Este amiibo del presidente legítimo es tan lujoso que no lo tiene ni Obama',NULL,NULL);
 /*!40000 ALTER TABLE `articulo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `clasificacion`
+--
+
+DROP TABLE IF EXISTS `clasificacion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `clasificacion` (
+  `i_clasificacion` varchar(3) NOT NULL,
+  `e_clasificacion` varchar(25) NOT NULL,
+  `q_edad` int(2) NOT NULL,
+  PRIMARY KEY (`i_clasificacion`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `clasificacion`
+--
+
+LOCK TABLES `clasificacion` WRITE;
+/*!40000 ALTER TABLE `clasificacion` DISABLE KEYS */;
+INSERT INTO `clasificacion` VALUES ('AO','Adults Only',18),('E','Everyone',3),('E10','Everyone 10+',10),('EC','Early Childhood',0),('M','Mature',17),('T','Teen ',13);
+/*!40000 ALTER TABLE `clasificacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -277,22 +281,54 @@ INSERT INTO `formato` VALUES ('D','Digital'),('F','Fisico');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `genero`
+--
+
+DROP TABLE IF EXISTS `genero`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `genero` (
+  `i_genero` varchar(3) NOT NULL,
+  `e_genero` varchar(45) NOT NULL,
+  PRIMARY KEY (`i_genero`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `genero`
+--
+
+LOCK TABLES `genero` WRITE;
+/*!40000 ALTER TABLE `genero` DISABLE KEYS */;
+INSERT INTO `genero` VALUES ('ACC','Accion'),('AVE','Aventura'),('CAR','Carreras'),('FPS','First Person Shooter'),('HOR','Horror'),('MUS','Musica'),('PEL','Peleas'),('RPG','Juego de Rol'),('SIM','Simulacion'),('TPS','Third Person Shooter');
+/*!40000 ALTER TABLE `genero` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `inventario`
 --
 
 DROP TABLE IF EXISTS `inventario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `inventario` (
-  `i_articulo` int(10) NOT NULL,
-  `q_existencia` int(4) NOT NULL,
-  `d_actividad` date NOT NULL,
-  `i_almacen` int(5) NOT NULL,
-  KEY `fk_inventario_almacen_idx` (`i_almacen`),
-  KEY `fk_inventario_articulo` (`i_articulo`),
-  CONSTRAINT `fk_inventario_articulo` FOREIGN KEY (`i_articulo`) REFERENCES `articulo` (`i_articulo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_inventario_almacen` FOREIGN KEY (`i_almacen`) REFERENCES `almacen` (`i_almacen`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `inventario` (
+  `i_articulo` INT(10) NOT NULL,
+  `q_existencia` INT(4) NOT NULL,
+  `d_actividad` DATE NOT NULL,
+  `i_almacen` INT(5) NOT NULL,
+  PRIMARY KEY (`i_articulo`),
+  INDEX `fk_inventario_almacen_idx` (`i_almacen` ASC),
+  CONSTRAINT `fk_inventario_articulo`
+    FOREIGN KEY (`i_articulo`)
+    REFERENCES `games`.`articulo` (`i_articulo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inventario_almacen`
+    FOREIGN KEY (`i_almacen`)
+    REFERENCES `games`.`almacen` (`i_almacen`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -371,7 +407,7 @@ CREATE TABLE `persona` (
   `d_alta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`i_persona`),
   UNIQUE KEY `i_persona_UNIQUE` (`i_persona`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -473,7 +509,8 @@ DROP TABLE IF EXISTS `tipo_articulo`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tipo_articulo` (
   `i_tipo_articulo` varchar(3) NOT NULL,
-  `e_tipo_articulo` varchar(15) NOT NULL,
+  `n_tipo_articulo` varchar(25) NOT NULL,
+  `e_tipo_articulo` varchar(50) NOT NULL,
   PRIMARY KEY (`i_tipo_articulo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -484,7 +521,7 @@ CREATE TABLE `tipo_articulo` (
 
 LOCK TABLES `tipo_articulo` WRITE;
 /*!40000 ALTER TABLE `tipo_articulo` DISABLE KEYS */;
-INSERT INTO `tipo_articulo` VALUES ('ACC','Accesorio'),('CON','Consola'),('CRD','Tarjeta de punt'),('GAM','Juego'),('PRM','Promocional');
+INSERT INTO `tipo_articulo` VALUES ('ACC','Accesorios','Lo necesario para que juegues como campeón'),('CON','Consolas','Poderosas consolas a precios increibles'),('CRD','Tarjetas y Suscripciones','Todo para mejorar tu forma de jugar'),('GAM','Juegos','Los mejores videojuegos, de todo tipo'),('PRM','Promocionales','Coleccionables de tus juegos favoritos');
 /*!40000 ALTER TABLE `tipo_articulo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -548,4 +585,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-29 15:41:54
+-- Dump completed on 2016-03-30 19:29:36

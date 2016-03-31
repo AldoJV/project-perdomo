@@ -1,0 +1,28 @@
+use games;
+desc articulo;
+ALTER TABLE articulo change e_articulo n_articulo VARCHAR(45) NOT NULL;
+ALTER TABLE articulo ADD e_articulo VARCHAR(140) NOT NULL;
+ALTER TABLE articulo ADD i_clasificacion VARCHAR(2);
+ALTER TABLE articulo ADD i_genero VARCHAR(3);
+
+update articulo set e_articulo = 'El mejor juego de todos los tiempos', i_clasificacion = 'M', i_genero = 'ACC' where i_articulo = 1;
+update articulo set e_articulo = 'El mejor juego de todos los tiempos, remasterizado para PC', i_clasificacion = 'M', i_genero = 'ACC' where i_articulo = 2;
+update articulo set e_articulo = 'La continuación de esta gran saga aclamada por su lore y su dificultad', i_clasificacion = 'M', i_genero = 'ACC' where i_articulo = 3;
+update articulo set e_articulo = 'La continuación de esta gran saga aclamada por su lore y su dificultad', i_clasificacion = 'M', i_genero = 'ACC' where i_articulo = 4;
+update articulo set e_articulo = 'La continuación de esta gran saga aclamada por su lore y su dificultad', i_clasificacion = 'M', i_genero = 'ACC' where i_articulo = 5;
+update articulo set e_articulo = 'Excelente juego RPG que te hará sentir sentimientos', i_clasificacion = 'E', i_genero = 'RPG' where i_articulo = 6;
+update articulo set e_articulo = 'Fantastico y loco juego de peleas con las estrellas de Nintendo', i_clasificacion = 'E10', i_genero = 'PEL' where i_articulo = 7;
+update articulo set e_articulo = 'Fantastico y loco juego de peleas con las estrellas de Nintendo', i_clasificacion = 'E10', i_genero = 'PEL' where i_articulo = 8;
+update articulo set e_articulo = 'Consola de nueva generación de Microsoft, el mejor centro de entretenimiento' where i_articulo = 9;
+update articulo set e_articulo = 'La nueva generación de Sony está aqui, incluye el juego de Uncharted' where i_articulo = 10;
+update articulo set e_articulo = 'La ultima consola de Nintendo te lleva a disfrutar sus franquicias al máximo, incluye Super Smash Bros' where i_articulo = 11;
+update articulo set e_articulo = 'Lo mejor de Nintendo en portatiles, disfruta tus juegos donde sea' where i_articulo = 12;
+update articulo set e_articulo = 'El poderoso 3ds en su version economica, disfruta del 3ds sin gastar mucho' where i_articulo = 13;
+update articulo set e_articulo = 'Destruye a tu competencia con este elegante y ergonomico control' where i_articulo = 14;
+update articulo set e_articulo = 'Sigue jugando con el increible DualShock4, el mejor control de Sony hasta hoy' where i_articulo = 15;
+update articulo set e_articulo = 'Disfruta de la precision que el Pro controller ofrece' where i_articulo = 16;
+update articulo set e_articulo = 'Regresa el mejor control de nintendo, se el mejor en Smash con esta reliquia' where i_articulo = 17;
+update articulo set e_articulo = 'Extiende tu suscripcion a Xbox Live por un año' where i_articulo = 18;
+update articulo set e_articulo = 'No dejes de gozar de los beneficios de PS+' where i_articulo = 19;
+update articulo set e_articulo = 'Este amiibo del presidente legítimo es tan lujoso que no lo tiene ni Obama' where i_articulo = 20;
+select * from articulo;
