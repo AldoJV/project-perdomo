@@ -1,0 +1,19 @@
+<div class="fr">
+<h2>Pixel Palace&nbsp;<small>La mejor tienda de videojuegos en linea.</small></h2>
+</div>
+<div class="jumbotron">
+	<div class="container">
+		<div class="row">
+		  <div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="item in items track by $index">
+		    <div class="thumbnail" style="height:500px;">
+		      <img src="images/articles/{{item.i_articulo}}.jpg" alt="{{item.n_articulo}}" style="height:40%;">
+		      <div class="caption">
+		        <h3>{{item.n_articulo}}</h3>
+		        <p>{{item.e_articulo}}</p>
+		        <p><a href="#" class="btn btn-primary" role="button">Más</a> &nbsp; ${{item.q_precioVenta}}</p>
+		    </div>
+		  </div>
+		</div>
+		
+	</div>
+</div>

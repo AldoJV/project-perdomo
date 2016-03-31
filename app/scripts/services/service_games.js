@@ -10,5 +10,12 @@ angular.module('yapp')
       	return response;
     }); 	
    }
+   this.getByCat = function(cat){
+    url = "http://localhost:3000/api/categorias/" + cat + "/";
+    console.log(cat);
+    return $http.get(url).then(function(response) {
+        return response;
+    });
+   }
 });
 

@@ -35,6 +35,7 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
 
     //Detalle Articulo individual
     router.get("/articulos/:i_articulo",function(req,res){
+        setCORS(res);
         var query = "SELECT * FROM ?? WHERE ??=?";
         var table = ["articulo","i_articulo",req.params.i_articulo];
         query = mysql.format(query,table);
@@ -53,6 +54,22 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
         var query = "SELECT * FROM ??";
         var table = ["tipo_articulo"];
         query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "data" : rows});
+            }
+        });
+    });
+
+    //Articulos por categoria
+    router.get("/categorias/:i_tipo",function(req,res){
+        setCORS(res);
+        var query = "SELECT i_articulo, n_articulo, e_articulo, q_precioVenta FROM ?? WHERE ??=?";
+        var table = ["articulo","i_tipo",req.params.i_tipo];
+        query = mysql.format(query,table);
+        console.log(query);
         connection.query(query,function(err,rows){
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});

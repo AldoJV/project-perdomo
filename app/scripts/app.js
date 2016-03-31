@@ -47,6 +47,17 @@
         parent: 'dashboard',
         templateUrl: 'views/dashboard/overview.html'
     })
+    .state('item_list', {
+        url: '/item_list/:cat',
+        parent: 'dashboard',
+        templateUrl: 'views/dashboard/itemlist.html',
+        controller: 'ListCtrl',
+        resolve: {
+        items: function(GameService, $stateParams){
+          return GameService.getByCat($stateParams.cat);
+        }
+      }
+    })
     .state('reports', {
         url: '/reports',
         parent: 'dashboard',
