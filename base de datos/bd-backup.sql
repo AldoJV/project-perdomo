@@ -316,7 +316,6 @@ CREATE TABLE IF NOT EXISTS `inventario` (
   `q_existencia` INT(4) NOT NULL,
   `d_actividad` DATE NOT NULL,
   `i_almacen` INT(5) NOT NULL,
-  PRIMARY KEY (`i_articulo`),
   INDEX `fk_inventario_almacen_idx` (`i_almacen` ASC),
   CONSTRAINT `fk_inventario_articulo`
     FOREIGN KEY (`i_articulo`)
