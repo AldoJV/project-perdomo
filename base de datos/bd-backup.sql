@@ -45,6 +45,32 @@ INSERT INTO `almacen` VALUES (1,'Almacen Tlane','Calle tal numero 6',54054),(2,'
 /*!40000 ALTER TABLE `almacen` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `almacen_inventario`
+--
+
+DROP TABLE IF EXISTS `almacen_inventario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `almacen_inventario` (
+  `i_almacen` int(5) NOT NULL,
+  `inventario_i_articulo` int(10) NOT NULL,
+  PRIMARY KEY (`i_almacen`,`inventario_i_articulo`),
+  KEY `fk_almacen_has_inventario_inventario1_idx` (`inventario_i_articulo`),
+  KEY `fk_almacen_has_inventario_almacen1_idx` (`i_almacen`),
+  CONSTRAINT `fk_almacen_has_inventario_almacen1` FOREIGN KEY (`i_almacen`) REFERENCES `almacen` (`i_almacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_almacen_has_inventario_inventario1` FOREIGN KEY (`inventario_i_articulo`) REFERENCES `inventario` (`i_articulo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `almacen_inventario`
+--
+
+LOCK TABLES `almacen_inventario` WRITE;
+/*!40000 ALTER TABLE `almacen_inventario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `almacen_inventario` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `articulo`
@@ -68,11 +94,13 @@ CREATE TABLE `articulo` (
   KEY `fk_articulo_tipo_idx` (`i_tipo`),
   KEY `fk_articulo_plat_idx` (`i_plataforma`),
   KEY `fk_articulo_formato_idx` (`i_formato`),
-  CONSTRAINT `fk_articulo_formato` FOREIGN KEY (`i_formato`) REFERENCES `formato` (`i_formato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_articulo_plat` FOREIGN KEY (`i_plataforma`) REFERENCES `plataforma` (`i_plataforma`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_articulo_tipo` FOREIGN KEY (`i_tipo`) REFERENCES `tipo_articulo` (`i_tipo_articulo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_articulo_clas` (`i_clasificacion`),
+  KEY `fk_articulo_gen` (`i_genero`),
   CONSTRAINT `fk_articulo_clas` FOREIGN KEY (`i_clasificacion`) REFERENCES `clasificacion` (`i_clasificacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_articulo_gen` FOREIGN KEY (`i_genero`) REFERENCES `genero` (`i_genero`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_articulo_formato` FOREIGN KEY (`i_formato`) REFERENCES `formato` (`i_formato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_articulo_gen` FOREIGN KEY (`i_genero`) REFERENCES `genero` (`i_genero`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_articulo_plat` FOREIGN KEY (`i_plataforma`) REFERENCES `plataforma` (`i_plataforma`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_articulo_tipo` FOREIGN KEY (`i_tipo`) REFERENCES `tipo_articulo` (`i_tipo_articulo`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -120,14 +148,17 @@ DROP TABLE IF EXISTS `cliente`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cliente` (
   `i_cliente` int(10) NOT NULL AUTO_INCREMENT,
-  `i_persona` int(10) NOT NULL,
+  `n_username` varchar(25) NOT NULL,
+  `e_password` varchar(25) NOT NULL,
+  `i_persona` int(10) DEFAULT NULL,
   `i_tipocliente` int(2) NOT NULL,
   `q_saldo` float DEFAULT '0',
   PRIMARY KEY (`i_cliente`),
+  UNIQUE KEY `n_username_UNIQUE` (`n_username`),
   KEY `fk_cliente_tipo_idx` (`i_tipocliente`),
   KEY `fk_cliente_pers_idx` (`i_persona`),
-  CONSTRAINT `fk_cliente_pers` FOREIGN KEY (`i_persona`) REFERENCES `persona` (`i_persona`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_cliente_tipo` FOREIGN KEY (`i_tipocliente`) REFERENCES `tipocliente` (`i_tipocliente`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_cliente_tipo` FOREIGN KEY (`i_tipocliente`) REFERENCES `tipocliente` (`i_tipocliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cliente_pers` FOREIGN KEY (`i_persona`) REFERENCES `persona` (`i_persona`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -137,7 +168,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,1,1,0),(2,2,2,1700),(3,3,1,0),(4,4,1,0),(5,5,2,450),(6,6,1,800),(7,7,2,0),(8,8,1,0),(9,9,2,2),(10,10,1,0),(11,11,1,0),(12,12,1,0),(13,13,1,0),(14,14,1,0),(15,15,1,0);
+INSERT INTO `cliente` VALUES (1,'garrus','cereal',1,1,0),(2,'liara','cereal',2,2,1700),(3,'tali','cereal',3,1,0),(4,'wrex','cereal',4,1,0),(5,'ash','cereal',5,2,450),(6,'kaidan','cereal',6,1,800),(7,'mordin','cereal',7,2,0),(8,'miranda','cereal',8,1,0),(9,'jacob','cereal',9,2,2),(10,'zaeed','cereal',10,1,0),(11,'gurnt','cereal',11,1,0),(12,'jack','cereal',12,1,0),(13,'legion','cereal',13,1,0),(14,'samara','cereal',14,1,0),(15,'thane','cereal',15,1,0);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -311,24 +342,16 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `inventario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `inventario` (
-  `i_articulo` INT(10) NOT NULL,
-  `q_existencia` INT(4) NOT NULL,
-  `d_actividad` DATE NOT NULL,
-  `i_almacen` INT(5) NOT NULL,
+CREATE TABLE `inventario` (
+  `i_articulo` int(10) NOT NULL,
+  `q_existencia` int(4) NOT NULL,
+  `d_actividad` date NOT NULL,
+  `i_almacen` int(5) NOT NULL,
   PRIMARY KEY (`i_articulo`),
-  INDEX `fk_inventario_almacen_idx` (`i_almacen` ASC),
-  CONSTRAINT `fk_inventario_articulo`
-    FOREIGN KEY (`i_articulo`)
-    REFERENCES `games`.`articulo` (`i_articulo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_inventario_almacen`
-    FOREIGN KEY (`i_almacen`)
-    REFERENCES `games`.`almacen` (`i_almacen`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  KEY `fk_inventario_almacen_idx` (`i_almacen`),
+  CONSTRAINT `fk_inventario_almacen` FOREIGN KEY (`i_almacen`) REFERENCES `almacen` (`i_almacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inventario_articulo` FOREIGN KEY (`i_articulo`) REFERENCES `articulo` (`i_articulo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,7 +360,6 @@ ENGINE = InnoDB;
 
 LOCK TABLES `inventario` WRITE;
 /*!40000 ALTER TABLE `inventario` DISABLE KEYS */;
-INSERT INTO `inventario` VALUES (1,5,'2016-03-28',1),(1,6,'2016-03-28',2),(1,3,'2016-03-28',3),(3,2,'2016-03-28',1),(3,8,'2016-03-28',2),(3,5,'2016-03-28',3),(4,6,'2016-03-28',1),(7,9,'2016-03-28',1),(8,5,'2016-03-28',2),(9,2,'2016-03-28',2),(9,3,'2016-03-28',3),(10,45,'2016-03-28',2),(11,21,'2016-03-28',1),(11,15,'2016-03-28',2),(12,2,'2016-03-28',2),(13,12,'2016-03-28',2),(13,8,'2016-03-28',3),(14,7,'2016-03-28',1),(14,6,'2016-03-28',2),(14,3,'2016-03-28',3),(15,6,'2016-03-28',3),(16,9,'2016-03-28',1),(17,5,'2016-03-28',2),(17,2,'2016-03-28',3),(18,3,'2016-03-28',1),(18,6,'2016-03-28',2),(18,6,'2016-03-28',3),(19,9,'2016-03-28',2),(20,50,'2016-03-28',1),(20,52,'2016-03-28',2),(20,420,'2016-03-28',3);
 /*!40000 ALTER TABLE `inventario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -475,6 +497,36 @@ INSERT INTO `region` VALUES (52784,'La herradura','Mexico','Huixquilucan','MEX')
 UNLOCK TABLES;
 
 --
+-- Table structure for table `review`
+--
+
+DROP TABLE IF EXISTS `review`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `review` (
+  `i_review` int(11) NOT NULL AUTO_INCREMENT,
+  `i_articulo` int(10) NOT NULL,
+  `i_cliente` int(10) NOT NULL,
+  `q_puntuacion` int(1) NOT NULL,
+  `e_review` varchar(500) NOT NULL,
+  PRIMARY KEY (`i_review`),
+  KEY `fk_review_1_idx` (`i_articulo`),
+  KEY `fk_review_2_idx` (`i_cliente`),
+  CONSTRAINT `fk_review_1` FOREIGN KEY (`i_articulo`) REFERENCES `articulo` (`i_articulo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_review_2` FOREIGN KEY (`i_cliente`) REFERENCES `cliente` (`i_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `review`
+--
+
+LOCK TABLES `review` WRITE;
+/*!40000 ALTER TABLE `review` DISABLE KEYS */;
+/*!40000 ALTER TABLE `review` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `telefono`
 --
 
@@ -585,4 +637,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-30 19:29:36
+-- Dump completed on 2016-04-01 17:19:48
