@@ -342,16 +342,17 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `inventario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `inventario` (
   `i_articulo` int(10) NOT NULL,
   `q_existencia` int(4) NOT NULL,
   `d_actividad` date NOT NULL,
   `i_almacen` int(5) NOT NULL,
-  PRIMARY KEY (`i_articulo`),
   KEY `fk_inventario_almacen_idx` (`i_almacen`),
   CONSTRAINT `fk_inventario_almacen` FOREIGN KEY (`i_almacen`) REFERENCES `almacen` (`i_almacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_inventario_articulo` FOREIGN KEY (`i_articulo`) REFERENCES `articulo` (`i_articulo`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
