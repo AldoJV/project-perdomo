@@ -149,7 +149,7 @@ DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `i_cliente` int(10) NOT NULL AUTO_INCREMENT,
   `n_username` varchar(25) NOT NULL,
-  `e_password` varchar(25) NOT NULL,
+  `e_password` varchar(32) NOT NULL,
   `i_persona` int(10) DEFAULT NULL,
   `i_tipocliente` int(2) NOT NULL,
   `q_saldo` float DEFAULT '0',
@@ -157,9 +157,9 @@ CREATE TABLE `cliente` (
   UNIQUE KEY `n_username_UNIQUE` (`n_username`),
   KEY `fk_cliente_tipo_idx` (`i_tipocliente`),
   KEY `fk_cliente_pers_idx` (`i_persona`),
-  CONSTRAINT `fk_cliente_tipo` FOREIGN KEY (`i_tipocliente`) REFERENCES `tipocliente` (`i_tipocliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_cliente_pers` FOREIGN KEY (`i_persona`) REFERENCES `persona` (`i_persona`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_cliente_pers` FOREIGN KEY (`i_persona`) REFERENCES `persona` (`i_persona`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cliente_tipo` FOREIGN KEY (`i_tipocliente`) REFERENCES `tipocliente` (`i_tipocliente`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +168,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'garrus','cereal',1,1,0),(2,'liara','cereal',2,2,1700),(3,'tali','cereal',3,1,0),(4,'wrex','cereal',4,1,0),(5,'ash','cereal',5,2,450),(6,'kaidan','cereal',6,1,800),(7,'mordin','cereal',7,2,0),(8,'miranda','cereal',8,1,0),(9,'jacob','cereal',9,2,2),(10,'zaeed','cereal',10,1,0),(11,'gurnt','cereal',11,1,0),(12,'jack','cereal',12,1,0),(13,'legion','cereal',13,1,0),(14,'samara','cereal',14,1,0),(15,'thane','cereal',15,1,0);
+INSERT INTO `cliente` VALUES (1,'garrus','cereal',1,1,0),(2,'liara','cereal',2,2,1700),(3,'tali','cereal',3,1,0),(4,'wrex','cereal',4,1,0),(5,'ash','cereal',5,2,450),(6,'kaidan','cereal',6,1,800),(7,'mordin','cereal',7,2,0),(8,'miranda','cereal',8,1,0),(9,'jacob','cereal',9,2,2),(10,'zaeed','cereal',10,1,0),(11,'gurnt','cereal',11,1,0),(12,'jack','cereal',12,1,0),(13,'legion','cereal',13,1,0),(14,'samara','cereal',14,1,0),(15,'thane','cereal',15,1,0),(25,'aldo','9cdfb439c7876e703e307864c9167a15',NULL,1,0);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,17 +342,16 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `inventario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-
 CREATE TABLE `inventario` (
   `i_articulo` int(10) NOT NULL,
   `q_existencia` int(4) NOT NULL,
   `d_actividad` date NOT NULL,
   `i_almacen` int(5) NOT NULL,
+  PRIMARY KEY (`i_articulo`),
   KEY `fk_inventario_almacen_idx` (`i_almacen`),
   CONSTRAINT `fk_inventario_almacen` FOREIGN KEY (`i_almacen`) REFERENCES `almacen` (`i_almacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_inventario_articulo` FOREIGN KEY (`i_articulo`) REFERENCES `articulo` (`i_articulo`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -452,7 +451,7 @@ DROP TABLE IF EXISTS `plataforma`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `plataforma` (
   `i_plataforma` varchar(5) NOT NULL,
-  `e_plataforma` varchar(15) NOT NULL,
+  `e_plataforma` varchar(50) NOT NULL,
   PRIMARY KEY (`i_plataforma`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -463,7 +462,7 @@ CREATE TABLE `plataforma` (
 
 LOCK TABLES `plataforma` WRITE;
 /*!40000 ALTER TABLE `plataforma` DISABLE KEYS */;
-INSERT INTO `plataforma` VALUES ('3DS','Nintendo 3ds'),('GCN','Nintendo Gamecu'),('NA','Ninguna'),('NDS','Nintendo DS'),('PC','Pc Master Race'),('SPS2','PlayStation 2'),('SPS3','PlayStation 3'),('SPS4','PlayStation 4'),('WII','Nintendo Wii'),('WIIU','Nintendo Wii u'),('X360','Xbox 360'),('XBONE','Xbox One'),('XBOX','Xbox');
+INSERT INTO `plataforma` VALUES ('3DS','Nintendo 3ds'),('GCN','Nintendo Gamecube'),('NA','Ninguna'),('NDS','Nintendo DS'),('PC','PC Master Race'),('SPS2','PlayStation 2'),('SPS3','PlayStation 3'),('SPS4','PlayStation 4'),('WII','Nintendo Wii'),('WIIU','Nintendo Wii u'),('X360','Xbox 360'),('XBONE','Xbox One'),('XBOX','Xbox');
 /*!40000 ALTER TABLE `plataforma` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -638,4 +637,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-01 17:19:48
+-- Dump completed on 2016-04-02 16:06:42
