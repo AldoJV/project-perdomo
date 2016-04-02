@@ -8,8 +8,11 @@
  * Controller of app-gp
  */
 angular.module('app-gp')
-  .controller('DashboardCtrl', function($scope, $rootScope, $state, categories) {
+  .controller('DashboardCtrl', function($scope, $rootScope, localStorageService, $state, categories) {
   	console.log($rootScope.cliente);
+  	//hardcoding, fix later
+  	$rootScope.cliente = localStorageService.get('cliente');
+  	//hardcoding ends here
   	$scope.categories = categories.data.data;
     $scope.$state = $state;
 
