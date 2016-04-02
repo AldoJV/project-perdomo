@@ -7,11 +7,11 @@
 	</div>
 		
 	<div class=" row form-content">
-		<form role="form" name="login" class="centeredobj bottom-75" novalidate ng-submit="submit()">
+		<form role="form" name="login" class="centeredobj bottom-75" novalidate ng-submit="submit(login.$valid)">
 		<div class="centeredobj">
 			<div class="form-groups col-xs-10 col-sm-10 col-md-10 col-lg-10">
 				<div class="form-group">
-					<input type="text" class="form-control input-lg" name="user" ng-model="user.name" placeholder="Usuario" required>
+					<input type="text" class="form-control input-lg" name="user" ng-model="user.username" placeholder="Usuario" required>
 				</div>
 				<div class="error" ng-show="login.$submitted || login.user.$touched"><span ng-show="login.user.$error.required">Se requiere un usuario.</div>
 				<div class="form-group">
@@ -26,6 +26,7 @@
 			</div>
 		</div>
 		<div class="remember col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<p class="text-center error" ng-show="credentialsError">Verifica tu usuario y contraseña.</p>
 			<span >Crear una cuenta</span> <br>
 			<span >Olvidé mi contraseña</span>
 		</div>			

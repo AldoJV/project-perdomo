@@ -2,22 +2,24 @@
 
 /**
  * @ngdoc overview
- * @name yapp
+ * @name app-gp
  * @description
- * # yapp
+ * # app-gp
  *
  * Main module of the application.
  */
  angular
- .module('yapp', [
+ .module('app-gp', [
     'ui.router',
     'snap',
-    'ngAnimate'
+    'ngAnimate',
+    'LocalStorageModule'
     ])
- .config(function($stateProvider, $urlRouterProvider) {
+ .config(function($stateProvider, $urlRouterProvider, localStorageServiceProvider) {
 
+    localStorageServiceProvider.setPrefix('GP');
     $urlRouterProvider.when('/dashboard', '/dashboard/overview');
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/dashboard');
 
     $stateProvider
     .state('base', {
@@ -65,3 +67,11 @@
     });
 
 });
+
+angular.module('app-gp').run([
+  "$rootScope",  "localStorageService", "$state", function($state, localStorageService, $rootScope) {
+  //CARGAR TODO LO DE LOCALSTORAGE AQUI
+  $rootScope.cliente = localStorageService.get('cliente');
+  console.log($rootScope.cliente);
+
+}]);

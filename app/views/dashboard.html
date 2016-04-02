@@ -6,11 +6,20 @@
     			<div class="snap-menu">
     				<div class="sidebar-header text-center">
     					<img src="images/flat-avatar.png" alt="" class="sidebar-img img-circle">
+                        <div ng-show="$root.cliente">
+                            <h3>{{cliente.n_username}}&nbsp;<i class="fa fa-star" ng-show="cliente.i_tipocliente == 2"></i></h3>
+                            <h3><small>${{cliente.q_saldo}}</small></h3>
+                        </div>
+                        <div ng-show="!$root.cliente">
+                            <h3>No has iniciado sesión</h3>
+                            <button class="btn btn-block">Crea una cuenta</button>
+                            <a href="" class="text-center" ui-sref="login">ó Inicia Sesión</a>
+                        </div>
     				</div>
     				<ul class="snap-ul">
     					<li ng-class="{active: $state.includes('overview')}"><a ui-sref="overview">HOME</a></li>
     					<li ng-class="{active: $state.includes('reports')}"><a ui-sref="reports">REPORTS</a></li>
-    					<li><a ui-sref="login">LOGOUT</a></li>
+    					<li><a ui-sref="login" ng-show="$root.cliente">LOGOUT</a></li>
     				</ul>
     			</div>
     		</snap-drawer>

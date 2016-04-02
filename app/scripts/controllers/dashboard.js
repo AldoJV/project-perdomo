@@ -2,19 +2,19 @@
 
 /**
  * @ngdoc function
- * @name yapp.controller:MainCtrl
+ * @name app-gp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of yapp
+ * Controller of app-gp
  */
-angular.module('yapp')
-  .controller('DashboardCtrl', function($scope, $state, categories) {
+angular.module('app-gp')
+  .controller('DashboardCtrl', function($scope, $rootScope, $state, categories) {
+  	console.log($rootScope.cliente);
   	$scope.categories = categories.data.data;
     $scope.$state = $state;
-    console.log($scope.$state);
 
   });
   
- angular.module('yapp').controller('ListCtrl', function($scope, $state, items) {
+ angular.module('app-gp').controller('ListCtrl', function($scope, $state, items) {
   	$scope.items = items.data.data;
   });

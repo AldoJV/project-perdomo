@@ -7,11 +7,21 @@ function REST_ROUTER(router,connection,md5) {
 
 function setCORS(res){
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods","GET, POST, OPTIONS");
     return res;
 }
 
+
+
 REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
+
+    router.use(function(req, res, next) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      next();
+    });
+
     var self = this;
 
     router.get("/",function(req,res){
@@ -75,6 +85,30 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "data" : rows});
+            }
+        });
+    });
+
+
+
+    //LOGIN
+    router.post("/login",function(req,res){
+        setCORS(res);
+        var query = "SELECT * FROM ?? WHERE ??=? AND ??=?";
+        var table = ["cliente","n_username", req.body.username, "e_password", req.body.password];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                if (rows.length > 0) {
+                    row = rows[0];
+                    delete row.e_password;
+                    res.json({"Error" : false, "Message" : "Todo chicles", "result":row});
+                } else {
+                    res.json({"Error" : true, "Message" : "BAD LOGIN"});
+                }
+                
             }
         });
     });

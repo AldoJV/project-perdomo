@@ -6,6 +6,8 @@ var karma = require('karma').server;
 var argv = require('yargs').argv;
 var $ = require('gulp-load-plugins')();
 
+var concat = require('gulp-concat');
+
 gulp.task('styles', function() {
   return gulp.src('app/styles/main.less')
     .pipe($.plumber())
@@ -25,6 +27,16 @@ gulp.task('jshint', function() {
 //   return gulp.src('app/scripts/**/*.js')
 //     .pipe($.jscs());
 // });
+
+gulp.task('scripts', function() {
+  var controllers = gulp.src('app/scripts/controllers/*.js')
+    .pipe(concat('controllers.js'))
+    .pipe(gulp.dest('app/www/'));
+  var services = gulp.src('app/scripts/services/*.js')
+    .pipe(concat('services.js'))
+    .pipe(gulp.dest('app/www/'));
+  return controllers, services;
+});
 
 gulp.task('html', ['styles'], function() {
   var lazypipe = require('lazypipe');
@@ -94,7 +106,7 @@ gulp.task('connect', ['styles'], function() {
     });
 });
 
-gulp.task('serve', ['wiredep', 'connect', 'fonts', 'watch'], function() {
+gulp.task('serve', ['wiredep', 'connect', 'fonts', 'scripts', 'watch'], function() {
   if (argv.open) {
     require('opn')('http://localhost:8000');
   }
@@ -134,6 +146,7 @@ gulp.task('wiredep', function() {
 gulp.task('watch', ['connect'], function() {
   $.livereload.listen();
 
+  gulp.watch('app/scripts/**/*.js', ['scripts']);
   // watch for changes
   gulp.watch([
     'app/**/*.html',
@@ -142,6 +155,7 @@ gulp.task('watch', ['connect'], function() {
     'app/images/**/*'
   ]).on('change', $.livereload.changed);
 
+  
   gulp.watch('app/styles/**/*.less', ['styles']);
   gulp.watch('bower.json', ['wiredep']);
 });
