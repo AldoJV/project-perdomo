@@ -6511,20 +6511,27 @@ button.close {
   padding: 40px 0;
 }
 .login-page .user-avatar {
-  max-width: 230px;
+  max-width: 280px;
   width: 100%;
   border: 3px solid white;
+  margin-left: auto;
+  margin-right: auto;
 }
 .login-page .img-container,
 .login-page .form-content {
-  display: table-cell;
+  margin-left: auto;
+  margin-right: auto;
   vertical-align: middle;
   padding: 15px;
 }
 .login-page .img-container {
   text-align: right;
-  width: 40%;
+  width: 50%;
   position: relative;
+}
+.login-page .centeredobj {
+  margin-left: auto;
+  margin-right: auto;
 }
 .login-page .form-content {
   position: relative;
@@ -6700,6 +6707,9 @@ button.close {
   .login-page .user-avatar {
     max-width: 200px;
   }
+}
+.error {
+  color: #e60000;
 }
 .dashboard-page {
   position: absolute;
