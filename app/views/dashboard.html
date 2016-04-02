@@ -5,7 +5,7 @@
     		<snap-drawer>
     			<div class="snap-menu">
     				<div class="sidebar-header text-center">
-    					<img src="images/flat-avatar.png" alt="" class="sidebar-img img-circle">
+    					<img src="images/logo.png" alt="" class="sidebar-img">
                         <div ng-show="$root.cliente">
                             <h3>{{cliente.n_username}}&nbsp;<i class="fa fa-star" ng-show="cliente.i_tipocliente == 2"></i></h3>
                             <h3><small>${{cliente.q_saldo}}</small></h3>
@@ -17,9 +17,10 @@
                         </div>
     				</div>
     				<ul class="snap-ul">
-    					<li ng-class="{active: $state.includes('overview')}"><a ui-sref="overview">HOME</a></li>
-    					<li ng-class="{active: $state.includes('reports')}"><a ui-sref="reports">REPORTS</a></li>
-    					<li><a ui-sref="login" ng-show="$root.cliente">LOGOUT</a></li>
+    					<li ng-class="{active: $state.includes('overview')}"><a ui-sref="overview">Página Principal</a></li>
+                        <li ng-class="{active: $state.includes('reports')}"><a ui-sref="reports">Mi Perfil</a></li>
+    					<li ng-class="{active: $state.includes('reports')}"><a ui-sref="reports">Mis Pedidos</a></li>
+    					<li><a ui-sref="login" ng-show="$root.cliente">Cerrar Sesión</a></li>
     				</ul>
     			</div>
     		</snap-drawer>
