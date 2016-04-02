@@ -79,7 +79,6 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
         var query = "SELECT i_articulo, n_articulo, e_articulo, q_precioVenta FROM ?? WHERE ??=?";
         var table = ["articulo","i_tipo",req.params.i_tipo];
         query = mysql.format(query,table);
-        console.log(query);
         connection.query(query,function(err,rows){
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
