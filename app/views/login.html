@@ -13,11 +13,13 @@
 				<div class="form-group">
 					<input type="text" class="form-control input-lg" name="user" ng-model="user.username" placeholder="Usuario" required>
 				</div>
-				<div class="error" ng-show="login.$submitted || login.user.$touched"><span ng-show="login.user.$error.required">Se requiere un usuario.</div>
+				<div class="error" ng-show="login.$submitted || login.user.$touched"><span ng-show="login.user.$error.required">Se requiere un usuario.</span></div>
 				<div class="form-group">
 					<input type="password" class="form-control input-lg" name="pass" ng-model="user.password" placeholder="Contraseña" required>
 				</div>
-				<div class="error" ng-show="login.$submitted || login.pass.$touched"><span ng-show="login.pass.$error.required">Se requiere una contraseña.</div>
+				<div class="error" ng-show="login.$submitted || login.pass.$touched">
+					<span ng-show="login.pass.$error.required">Se requiere una contraseña.</span>
+				</div>
 				
 					
 			</div>	
@@ -27,7 +29,7 @@
 		</div>
 		<div class="remember col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			<p class="text-center error" ng-show="credentialsError">Verifica tu usuario y contraseña.</p>
-			<span >Crear una cuenta</span> <br>
+			<span ui-sref="sign-in">Crear una cuenta</span> <br>
 			<span >Olvidé mi contraseña</span>
 		</div>			
 		</form>

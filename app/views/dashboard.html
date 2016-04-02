@@ -17,10 +17,10 @@
                         </div>
     				</div>
     				<ul class="snap-ul">
-    					<li ng-class="{active: $state.includes('overview')}"><a ui-sref="overview">Página Principal</a></li>
-                        <li ng-class="{active: $state.includes('reports')}"><a ui-sref="reports">Mi Perfil</a></li>
-    					<li ng-class="{active: $state.includes('reports')}"><a ui-sref="reports">Mis Pedidos</a></li>
-    					<li><a ui-sref="login" ng-show="$root.cliente">Cerrar Sesión</a></li>
+    					<li ng-class="{active: $state.includes('overview')}"><a ui-sref="overview"><i class="fa fa-home"></i>&nbsp;Página Principal</a></li>
+                        <li ng-class="{active: $state.includes('reports')}"><a ui-sref="reports"><i class="fa fa-user"></i>&nbsp;Mi Perfil</a></li>
+    					<li ng-class="{active: $state.includes('reports')}"><a ui-sref="reports"><i class="fa fa-shopping-cart"></i>&nbsp;Mis Pedidos</a></li>
+    					<li><a ui-sref="login" ng-show="$root.cliente"><i class="fa fa-sign-out"></i>&nbsp;Cerrar Sesión</a></li>
     				</ul>
     			</div>
     		</snap-drawer>

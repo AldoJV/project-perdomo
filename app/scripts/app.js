@@ -33,6 +33,12 @@
       templateUrl: 'views/login.html',
       controller: 'LoginCtrl'
   })
+    .state('sign-in', {
+      url: '/sign-in',
+      parent: 'base',
+      templateUrl: 'views/sign-in.html',
+      controller: 'SigninCtrl'
+  })
     .state('dashboard', {
       url: '/dashboard',
       parent: 'base',
@@ -41,6 +47,9 @@
       resolve: {
         categories: function(GameService){
           return GameService.getCategories();
+        },
+        platforms: function(GameService){
+          return GameService.getPlatforms();
         }
       }
   })
@@ -50,13 +59,13 @@
         templateUrl: 'views/dashboard/overview.html'
     })
     .state('item_list', {
-        url: '/item_list/:cat',
+        url: '/item_list/:criteria/:element',
         parent: 'dashboard',
         templateUrl: 'views/dashboard/itemlist.html',
         controller: 'ListCtrl',
         resolve: {
         items: function(GameService, $stateParams){
-          return GameService.getByCat($stateParams.cat);
+          return GameService.getBy($stateParams.criteria, $stateParams.element);
         }
       }
     })

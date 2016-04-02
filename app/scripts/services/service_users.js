@@ -5,5 +5,10 @@ angular.module('app-gp')
       	return response;
     });
    }
+   this.signin = function(user){
+   	return $http.post("http://localhost:3000/api/signin/",user).then(function(response) {
+      	return response;
+    });
+   }
    
 });

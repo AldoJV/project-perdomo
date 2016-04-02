@@ -73,11 +73,41 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
         });
     });
 
+    //Listado plataformas
+    router.get("/plataformas",function(req,res){
+        setCORS(res);
+        var query = "SELECT * FROM ?? WHERE i_plataforma <> 'NA'";
+        var table = ["plataforma"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "data" : rows});
+            }
+        });
+    });
+
     //Articulos por categoria
     router.get("/categorias/:i_tipo",function(req,res){
         setCORS(res);
         var query = "SELECT i_articulo, n_articulo, e_articulo, q_precioVenta FROM ?? WHERE ??=?";
         var table = ["articulo","i_tipo",req.params.i_tipo];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "data" : rows});
+            }
+        });
+    });
+
+    //Articulos por plataforma
+    router.get("/plataformas/:i_plataforma",function(req,res){
+        setCORS(res);
+        var query = "SELECT i_articulo, n_articulo, e_articulo, q_precioVenta FROM ?? WHERE ??=?";
+        var table = ["articulo","i_plataforma",req.params.i_plataforma];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -94,7 +124,7 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
     router.post("/login",function(req,res){
         setCORS(res);
         var query = "SELECT * FROM ?? WHERE ??=? AND ??=?";
-        var table = ["cliente","n_username", req.body.username, "e_password", req.body.password];
+        var table = ["cliente","n_username", req.body.username, "e_password", md5(req.body.password)];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -108,6 +138,20 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
                     res.json({"Error" : true, "Message" : "BAD LOGIN"});
                 }
                 
+            }
+        });
+    });
+
+    //Crear cuenta
+    router.post("/signin",function(req,res){
+        var query = "INSERT INTO ??(??,??,??) VALUES (?,?,?)";
+        var table = ["cliente","n_username","e_password","i_tipocliente",req.body.username,md5(req.body.password),req.body.i_tipocliente];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query", "detail": err});
+            } else {
+                res.json({"Error" : false, "Message" : "Usuario añadido exitosamente!"});
             }
         });
     });
