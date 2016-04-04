@@ -118,6 +118,21 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
         });
     });
 
+    //Obtener Perfil
+    router.get("/profile/:i_persona",function(req,res){
+        setCORS(res);
+        var query = "SELECT * FROM ?? WHERE ??=?";
+        var table = ["persona","i_persona",req.params.i_persona];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "data" : rows});
+            }
+        });
+    });
+
 
 
     //LOGIN
@@ -125,15 +140,22 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
         setCORS(res);
         var query = "SELECT * FROM ?? WHERE ??=? AND ??=?";
         var table = ["cliente","n_username", req.body.username, "e_password", md5(req.body.password)];
+
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             } else {
                 if (rows.length > 0) {
+                    var has_profile;
                     row = rows[0];
                     delete row.e_password;
-                    res.json({"Error" : false, "Message" : "Todo chicles", "result":row});
+                    if (row.i_persona == null) {
+                        has_profile = false;
+                    } else {
+                        has_profile = true;
+                    }
+                    res.json({"Error" : false, "Message" : "Todo chicles", "result":row, "has_profile": has_profile});
                 } else {
                     res.json({"Error" : true, "Message" : "BAD LOGIN"});
                 }
