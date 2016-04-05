@@ -14,7 +14,21 @@ function setCORS(res){
 
 
 
+
 REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
+
+    function updateCliente(i_cliente,i_persona) {
+        var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
+        var table = ["cliente","i_persona",i_persona,"i_cliente",i_cliente];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,result){
+            if(err) {
+                return err;
+            } else {
+                return result; 
+            }
+        });
+    }
 
     router.use(function(req, res, next) {
       res.header("Access-Control-Allow-Origin", "*");
@@ -178,6 +192,50 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
         });
     });
 
+    //Crear perfil
+    router.post("/persona",function(req,res){
+        var query = "INSERT INTO ??(??,??,??,??,??,??) VALUES (?,?,?,?,?,?)";
+        var values = ["persona",
+                    "n_persona",
+                    "n_apaterno",
+                    "n_amaterno",
+                    "i_genero",
+                    "d_nacimiento",
+                    "e_email",
+                    req.body.n_persona,
+                    req.body.n_apaterno,
+                    req.body.n_amaterno,
+                    req.body.i_genero,
+                    req.body.d_nacimiento,
+                    req.body.e_email,
+                    ];
+
+        query = mysql.format(query,values);
+        connection.query(query,function(err,result){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query", "detail": err});
+            } else {
+                updateCliente(req.body.i_cliente,result.insertId);
+                res.json({"Error" : false, "Message" : "Perfil creado exitosamente!"});
+            }
+        });
+    });
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
 //EXAMPLE ONES
     router.get("/users",function(req,res){
         var query = "SELECT * FROM ??";

@@ -1,12 +1,3 @@
-'use strict';
-
-/**
- * @ngdoc function
- * @name app-gp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of app-gp
- */
 angular.module('app-gp')
   .controller('SigninCtrl', function($scope, $rootScope, $location, UserService, localStorageService) {
   	$scope.credentialsError = false;

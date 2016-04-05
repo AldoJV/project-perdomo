@@ -1,14 +1,5 @@
-'use strict';
-
-/**
- * @ngdoc function
- * @name app-gp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of app-gp
- */
 angular.module('app-gp')
-  .controller('DashboardCtrl', function($scope, $rootScope, localStorageService, $state, categories, platforms) {
+  .controller('MainCtrl', function($scope, $rootScope, localStorageService, $state, categories, platforms) {
   	console.log($rootScope.cliente);
   	//hardcoding, fix later
   	$rootScope.cliente = localStorageService.get('cliente');

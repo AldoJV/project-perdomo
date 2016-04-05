@@ -1,14 +1,5 @@
-'use strict';
-
-/**
- * @ngdoc function
- * @name app-gp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of app-gp
- */
 angular.module('app-gp')
-  .controller('DashboardCtrl', function($scope, $rootScope, localStorageService, $state, categories, platforms) {
+  .controller('MainCtrl', function($scope, $rootScope, localStorageService, $state, categories, platforms) {
   	console.log($rootScope.cliente);
   	//hardcoding, fix later
   	$rootScope.cliente = localStorageService.get('cliente');
@@ -23,17 +14,8 @@ angular.module('app-gp')
   	$scope.items = items.data.data;
   });
 
-'use strict';
-
-/**
- * @ngdoc function
- * @name app-gp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of app-gp
- */
 angular.module('app-gp')
-  .controller('LoginCtrl', function($scope, $rootScope, $location, UserService, localStorageService) {
+  .controller('LoginCtrl', function($scope, $rootScope, $location, UserService, localStorageService, $state) {
   	$scope.credentialsError = false;
     $scope.submit = function(valid) {
     	if (valid) {
@@ -43,7 +25,7 @@ angular.module('app-gp')
     			}else{
             $rootScope.cliente = response.data.result;
             localStorageService.set('cliente', $rootScope.cliente);
-    				$location.path('/dashboard');
+    				$state.go('dashboard');
     			}
     		});
     	}else{
@@ -56,15 +38,6 @@ angular.module('app-gp')
 
   });
 
-'use strict';
-
-/**
- * @ngdoc function
- * @name app-gp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of app-gp
- */
 angular.module('app-gp')
   .controller('SigninCtrl', function($scope, $rootScope, $location, UserService, localStorageService) {
   	$scope.credentialsError = false;

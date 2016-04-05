@@ -1,10 +1,4 @@
-'use strict';
-
 /**
- * @ngdoc overview
- * @name app-gp
- * @description
- * # app-gp
  *
  * Main module of the application.
  */
@@ -18,8 +12,8 @@
  .config(function($stateProvider, $urlRouterProvider, localStorageServiceProvider) {
 
     localStorageServiceProvider.setPrefix('GP');
-    $urlRouterProvider.when('/dashboard', '/dashboard/overview');
-    $urlRouterProvider.otherwise('/dashboard');
+    $urlRouterProvider.when('/main', '/main/overview');
+    $urlRouterProvider.otherwise('/main');
 
     $stateProvider
     .state('base', {
@@ -30,20 +24,20 @@
     .state('login', {
       url: '/login',
       parent: 'base',
-      templateUrl: 'views/login.html',
+      templateUrl: 'views/user/login.html',
       controller: 'LoginCtrl'
   })
     .state('sign-in', {
       url: '/sign-in',
       parent: 'base',
-      templateUrl: 'views/sign-in.html',
+      templateUrl: 'views/user/sign-in.html',
       controller: 'SigninCtrl'
   })
     .state('dashboard', {
-      url: '/dashboard',
+      url: '/main',
       parent: 'base',
-      templateUrl: 'views/dashboard.html',
-      controller: 'DashboardCtrl',
+      templateUrl: 'views/main.html',
+      controller: 'MainCtrl',
       resolve: {
         categories: function(GameService){
           return GameService.getCategories();
@@ -61,7 +55,7 @@
     .state('item_list', {
         url: '/item_list/:criteria/:element',
         parent: 'dashboard',
-        templateUrl: 'views/dashboard/itemlist.html',
+        templateUrl: 'views/item/itemlist.html',
         controller: 'ListCtrl',
         resolve: {
         items: function(GameService, $stateParams){
