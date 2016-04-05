@@ -63,6 +63,17 @@
         }
       }
     })
+    .state('item_view', {
+        url: '/item_view/:i_articulo',
+        parent: 'dashboard',
+        templateUrl: 'views/item/item-view.html',
+        controller: 'ViewCtrl',
+        resolve: {
+        item: function(GameService, $stateParams){
+          return GameService.getItem($stateParams.i_articulo);
+        }
+      }
+    })
     .state('reports', {
         url: '/reports',
         parent: 'dashboard',

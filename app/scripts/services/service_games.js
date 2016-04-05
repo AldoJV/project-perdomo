@@ -21,5 +21,11 @@ angular.module('app-gp')
         return response;
     });   
    }
+   this.getItem = function(i_articulo) {
+    url = "http://localhost:3000/api/articulos/" + i_articulo;
+    return $http.get(url).then(function(response) {
+        return response;
+    });   
+   }
 });
 

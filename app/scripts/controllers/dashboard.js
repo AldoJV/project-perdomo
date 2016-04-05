@@ -10,6 +10,3 @@ angular.module('app-gp')
 
   });
   
- angular.module('app-gp').controller('ListCtrl', function($scope, $state, items) {
-  	$scope.items = items.data.data;
-  });

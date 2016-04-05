@@ -14,6 +14,11 @@ angular.module('app-gp')
   	$scope.items = items.data.data;
   });
 
+ angular.module('app-gp').controller('ViewCtrl', function($scope, $state, item) {
+  	$scope.item = item.data.data;
+  	console.log($scope.item);
+  });
+
 angular.module('app-gp')
   .controller('LoginCtrl', function($scope, $rootScope, $location, UserService, localStorageService, $state) {
   	$scope.credentialsError = false;

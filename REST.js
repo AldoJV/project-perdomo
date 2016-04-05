@@ -67,7 +67,8 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             } else {
-                res.json({"Error" : false, "Message" : "Success", "data" : rows});
+                row = rows[0];
+                res.json({"Error" : false, "Message" : "Success", "data" : row});
             }
         });
     });
