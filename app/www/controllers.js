@@ -30,7 +30,12 @@ angular.module('app-gp')
     			}else{
             $rootScope.cliente = response.data.result;
             localStorageService.set('cliente', $rootScope.cliente);
-    				$state.go('dashboard');
+    				
+            if ($rootScope.cliente.has_profile){
+              $state.go('dashboard');  
+            }else{
+              $state.go('formulary');  
+            }
     			}
     		});
     	}else{
@@ -56,11 +61,10 @@ angular.module('app-gp')
             if(err.errno == 1062){
               $scope.signinerror = true;
               $scope.errMessg = "Este usuario ya está registrado, intenta otro nombre."
-            }else {
+            }else{
               $scope.signinerror = true;
               $scope.errMessg = "Ocurrió un error inesperado, intenta de nuevo más tarde."
             }
-
     			}else{
             //$rootScope.cliente = response.data.result;
             //localStorageService.set('cliente', $rootScope.cliente);

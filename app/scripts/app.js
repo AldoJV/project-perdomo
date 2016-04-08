@@ -74,6 +74,12 @@
         }
       }
     })
+      .state('formulary', {
+        url: '/formulary',
+        parent: 'base',
+        templateUrl: 'views/user/formulary.html',
+        controller: 'SigninCtrl'
+    })
     .state('reports', {
         url: '/reports',
         parent: 'dashboard',

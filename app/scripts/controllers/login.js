@@ -9,7 +9,12 @@ angular.module('app-gp')
     			}else{
             $rootScope.cliente = response.data.result;
             localStorageService.set('cliente', $rootScope.cliente);
-    				$state.go('dashboard');
+    				
+            if ($rootScope.cliente.has_profile){
+              $state.go('dashboard');  
+            }else{
+              $state.go('formulary');  
+            }
     			}
     		});
     	}else{

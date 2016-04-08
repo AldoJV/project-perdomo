@@ -573,7 +573,7 @@ CREATE TABLE `tipo_articulo` (
 
 LOCK TABLES `tipo_articulo` WRITE;
 /*!40000 ALTER TABLE `tipo_articulo` DISABLE KEYS */;
-INSERT INTO `tipo_articulo` VALUES ('ACC','Accesorios','Lo necesario para que juegues como campeón'),('CON','Consolas','Poderosas consolas a precios increibles'),('CRD','Tarjetas y Suscripciones','Todo para mejorar tu forma de jugar'),('GAM','Juegos','Los mejores videojuegos, de todo tipo'),('PRM','Promocionales','Coleccionables de tus juegos favoritos');
+INSERT INTO `tipo_articulo` VALUES ('ACC','Accesorios','Lo necesario para que juegues como campeón'),('CNS','Consolas','Poderosas consolas a precios increibles'),('CRD','Tarjetas y Suscripciones','Todo para mejorar tu forma de jugar'),('GAM','Juegos','Los mejores videojuegos, de todo tipo'),('PRM','Promocionales','Coleccionables de tus juegos favoritos');
 /*!40000 ALTER TABLE `tipo_articulo` ENABLE KEYS */;
 UNLOCK TABLES;
 
