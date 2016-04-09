@@ -78,7 +78,7 @@
         url: '/formulary',
         parent: 'base',
         templateUrl: 'views/user/formulary.html',
-        controller: 'SigninCtrl'
+        controller: 'ProfileCtrl'
     })
     .state('reports', {
         url: '/reports',

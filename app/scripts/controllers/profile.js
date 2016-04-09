@@ -1,10 +1,12 @@
 angular.module('app-gp')
-  .controller('SigninCtrl', function($scope, $rootScope, $location, UserService, localStorageService) {
+  .controller('ProfileCtrl', function($scope, $rootScope, $location, UserService, localStorageService) {
   	$scope.credentialsError = false;
     $scope.submit = function(valid) {
-    	if ((valid) && ($scope.user.password == $scope.passwordconfirm)){
-        $scope.user.i_tipocliente = 1;
-    		UserService.signin($scope.user).then(function (response){
+    	if (valid){
+        $rootScope.cliente = localStorageService.get('cliente');
+        console.log($rootScope.cliente.i_cliente);
+        $scope.user.i_cliente = $rootScope.cliente.i_cliente;
+    		UserService.profile($scope.user).then(function (response){
     			console.log(response.data);
           if(response.data.Error){
             var err=response.data.detail;

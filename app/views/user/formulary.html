@@ -13,41 +13,35 @@
 		<div class="centeredobj">
 			<div class="form-groups col-xs-10 col-sm-10 col-md-10 col-lg-10">
 				<div class="form-group">
-					<input type="text" class="form-control input-lg" name="nombre" ng-model="profile.name" placeholder="Nombre" required>
+					<input type="text" class="form-control input-lg" name="nombre" ng-model="profile.n_persona" placeholder="Nombre" required>
 				</div>
 				<div class="error" ng-show="persona.$submitted || persona.nombre.$touched"><span ng-show="persona.nombre.$error.required">Escriba su nombre.</span></div>
 				<div class="form-group">
-					<input type="text" class="form-control input-lg" name="apellidop" ng-model="profile.namep" placeholder="Appellido Paterno" required>
+					<input type="text" class="form-control input-lg" name="apellidop" ng-model="profile.n_apaterno" placeholder="Appellido Paterno" required>
 				</div>
 				<div class="error" ng-show="persona.$submitted || persona.apellidop.$touched"><span ng-show="persona.apellidop.$error.required">Escriba su apellido paterno.</span></div>
 				<div class="form-group">
-					<input type="text" class="form-control input-lg" name="apellidom" ng-model="profile.namem" placeholder="Appellido Materno">
+					<input type="text" class="form-control input-lg" name="apellidom" ng-model="profile.n_amaterno" placeholder="Appellido Materno">
 				</div>
 				<div class="form-group">
 					<span>Seleccione su genero</span>
-					<select class="form-control input-lg" name="genero" ng-model="profile.gender" required>
+					<select class="form-control input-lg" name="genero" ng-model="profile.i_genero" required>
 						<option value="M">Masculino</option>
 						<option value="F">Femenino</option>
 					</select>
 				</div>
-				<div class="error" ng-show="persona.$submitted || persona.apellidop.$touched"><span ng-show="persona.apellidop.$error.required">Escriba su apellido paterno.</span></div>
-				
-				
+				<div class="error" ng-show="persona.$submitted || persona.genero.$touched"><span ng-show="persona.genero.$error.required">Indique su genero.</span></div>
+
 				<div class="form-group">
-					<input type="password" class="form-control input-lg" name="pass2" ng-model="passwordconfirm" placeholder="Confirma tu contraseña" required>
+					<input type="email" class="form-control input-lg" name="email" ng-model="profile.e_email" placeholder="Correo@electronico" required>
 				</div>
-				<div class="error" ng-show="persona.$submitted || persona.pass2.$touched">
-					<span ng-show="persona.pass2.$error.required">Se requiere una contraseña.</span><br>
-					<span ng-show="user.password != passwordconfirm">Ambas contraseñas deben coincidir.</span>
-				</div>
-					
+				<div class="error" ng-show="persona.$submitted || persona.email.$touched"><span ng-show="persona.email.$error.required">Escriba su correo electronico.</span></div>	
 			</div>	
 			<div class="button-container col-xs-2 col-sm-2 col-md-2 col-lg-2">
 				<button type="submit" class="btn btn-default login"><img src="images/arrow.png" alt=""></button>
 			</div>
 		</div>
 		<div class="remember col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<p class="text-center error" ng-show="credentialsError">Verifica tu usuario y contraseña.</p>
 			<span ui-sref="dashboard">Cancelar</span>
 		</div>			
 		</form>
