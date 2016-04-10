@@ -133,22 +133,6 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
         });
     });
 
-    //Obtener Perfil
-    router.get("/profile/:i_persona",function(req,res){
-        setCORS(res);
-        var query = "SELECT * FROM ?? WHERE ??=?";
-        var table = ["persona","i_persona",req.params.i_persona];
-        query = mysql.format(query,table);
-        connection.query(query,function(err,rows){
-            if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
-            } else {
-                res.json({"Error" : false, "Message" : "Success", "data" : rows});
-            }
-        });
-    });
-
-
 
     //LOGIN
     router.post("/login",function(req,res){
@@ -193,6 +177,23 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
         });
     });
 
+
+    //Obtener Perfil
+    router.get("/persona/:i_persona",function(req,res){
+        setCORS(res);
+        var query = "SELECT * FROM ?? WHERE ??=?";
+        var table = ["persona","i_persona",req.params.i_persona];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                var row = rows[0];
+                res.json({"Error" : false, "Message" : "Success", "data" : row});
+            }
+        });
+    });
+
     //Crear perfil
     router.post("/persona",function(req,res){
         var query = "INSERT INTO ??(??,??,??,??,??,??) VALUES (?,?,?,?,?,?)";
@@ -212,13 +213,12 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
                     ];
 
         query = mysql.format(query,values);
-        console.log(query);
         connection.query(query,function(err,result){
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query", "detail": err});
             } else {
                 updateCliente(req.body.i_cliente,result.insertId);
-                res.json({"Error" : false, "Message" : "Perfil creado exitosamente!"});
+                res.json({"Error" : false, "Message" : "Perfil creado exitosamente!", "i_persona" : result.insertId});
             }
         });
     });

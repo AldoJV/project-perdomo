@@ -8,5 +8,13 @@ angular.module('app-gp')
     $scope.platforms = platforms.data.data;
     $scope.$state = $state;
 
+    $scope.checkProfile = function () {
+    	 if ($rootScope.cliente.has_profile) {
+    	 	$state.go("view-profile", ({i_persona: $rootScope.cliente.i_persona}));
+    	 } else {
+    	 	$state.go("create-profile");
+    	 }
+    }
+
   });
   

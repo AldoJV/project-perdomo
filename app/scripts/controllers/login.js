@@ -8,12 +8,13 @@ angular.module('app-gp')
     				$scope.credentialsError = true;
     			}else{
             $rootScope.cliente = response.data.result;
+            $rootScope.cliente.has_profile = response.data.has_profile
             localStorageService.set('cliente', $rootScope.cliente);
     				
             if ($rootScope.cliente.has_profile){
               $state.go('dashboard');  
             }else{
-              $state.go('formulary');  
+              $state.go('create-profile');  
             }
     			}
     		});

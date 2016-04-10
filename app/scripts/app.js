@@ -69,16 +69,27 @@
         templateUrl: 'views/item/item-view.html',
         controller: 'ViewCtrl',
         resolve: {
-        item: function(GameService, $stateParams){
-          return GameService.getItem($stateParams.i_articulo);
+          item: function(GameService, $stateParams){
+            return GameService.getItem($stateParams.i_articulo);
+          }
         }
-      }
     })
-      .state('formulary', {
-        url: '/formulary',
+    .state('create-profile', {
+        url: '/create-profile',
         parent: 'base',
-        templateUrl: 'views/user/formulary.html',
+        templateUrl: 'views/user/create-profile.html',
         controller: 'ProfileCtrl'
+    })
+    .state('view-profile', {
+        url: '/view-profile/:i_persona',
+        parent: 'dashboard',
+        templateUrl: 'views/user/view-profile.html',
+        controller: 'ProfileViewCtrl',
+        resolve: {
+          profile: function(UserService, $stateParams){
+            return UserService.getProfile($stateParams.i_persona);
+          }
+        }
     })
     .state('reports', {
         url: '/reports',

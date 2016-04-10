@@ -1,5 +1,5 @@
 angular.module('app-gp')
-  .controller('SigninCtrl', function($scope, $rootScope, $location, UserService, localStorageService) {
+  .controller('SigninCtrl', function($scope, $rootScope, $state, UserService, localStorageService) {
   	$scope.credentialsError = false;
     $scope.submit = function(valid) {
     	if ((valid) && ($scope.user.password == $scope.passwordconfirm)){
@@ -18,7 +18,7 @@ angular.module('app-gp')
     			}else{
             //$rootScope.cliente = response.data.result;
             //localStorageService.set('cliente', $rootScope.cliente);
-    				$location.path('/dashboard');
+    				$state.go('create-profile');
     			}
     		});
     	}else{

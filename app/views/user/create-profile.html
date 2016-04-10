@@ -1,4 +1,4 @@
-<div class="formulary-page">
+<div class="create-profile-page">
 	<div ng-show="personaerror" class="alert alert-danger" style="position:relative;">
 	  <strong>ERROR</strong> {{errMessg}}
 	</div>
@@ -24,18 +24,22 @@
 					<input type="text" class="form-control input-lg" name="apellidom" ng-model="profile.n_amaterno" placeholder="Appellido Materno">
 				</div>
 				<div class="form-group">
-					<span>Seleccione su genero</span>
+					<input type="email" class="form-control input-lg" name="email" ng-model="profile.e_email" placeholder="Correo@electronico" required>
+				</div>
+				<div class="error" ng-show="persona.$submitted || persona.email.$touched"><span ng-show="persona.email.$error.required">Escriba su correo electronico.</span></div>
+				<div class="form-group">
+					<label for="genero">Seleccione su genero</label>
 					<select class="form-control input-lg" name="genero" ng-model="profile.i_genero" required>
 						<option value="M">Masculino</option>
 						<option value="F">Femenino</option>
 					</select>
 				</div>
 				<div class="error" ng-show="persona.$submitted || persona.genero.$touched"><span ng-show="persona.genero.$error.required">Indique su genero.</span></div>
-
 				<div class="form-group">
-					<input type="email" class="form-control input-lg" name="email" ng-model="profile.e_email" placeholder="Correo@electronico" required>
+					<label for="nacimiento">Fecha de Nacimiento</label>
+					<input type="date" class="form-control input-lg" name="nacimiento" ng-model="profile.d_nacimiento" placeholder="Fecha de nacimiento" required>
 				</div>
-				<div class="error" ng-show="persona.$submitted || persona.email.$touched"><span ng-show="persona.email.$error.required">Escriba su correo electronico.</span></div>	
+				<div class="error" ng-show="persona.$submitted || persona.nacimiento.$touched"><span ng-show="persona.nacimiento.$error.required">Indique su fecha de nacimiento.</span></div>	
 			</div>	
 			<div class="button-container col-xs-2 col-sm-2 col-md-2 col-lg-2">
 				<button type="submit" class="btn btn-default login"><img src="images/arrow.png" alt=""></button>

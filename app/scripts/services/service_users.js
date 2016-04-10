@@ -10,5 +10,16 @@ angular.module('app-gp')
       	return response;
     });
    }
+   this.setProfile = function(user){
+    return $http.post("http://localhost:3000/api/persona/",user).then(function(response) {
+        return response;
+    });
+   }
+   this.getProfile = function(user){
+    url = "http://localhost:3000/api/persona/" + user
+    return $http.get(url).then(function(response) {
+        return response;
+    });
+   }
    
 });
