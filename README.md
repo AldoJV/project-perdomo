@@ -22,7 +22,10 @@
 	```
 	npm install
 	```
-
+	
+	```
+	npm install --global gulp-cli
+	```
 3. correr el script bd_backup.sql en mysql para crear la base de datos correcta
 4. correr el servidor de la REST API desde la carpeta del proyecto
 	```
