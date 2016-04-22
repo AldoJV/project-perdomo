@@ -1,22 +1,23 @@
 angular.module('app-gp')
   .service('UserService', function($http){
+    serviceURL= "http://192.168.1.85:3000/api";
    this.login = function(user) {
-   	return $http.post("http://localhost:3000/api/login/",user).then(function(response) {
+   	return $http.post(serviceURL + "/login/",user).then(function(response) {
       	return response;
     });
    }
    this.signin = function(user){
-   	return $http.post("http://localhost:3000/api/signin/",user).then(function(response) {
+   	return $http.post(serviceURL + "/signin/",user).then(function(response) {
       	return response;
     });
    }
    this.setProfile = function(user){
-    return $http.post("http://localhost:3000/api/persona/",user).then(function(response) {
+    return $http.post(serviceURL + "/persona/",user).then(function(response) {
         return response;
     });
    }
    this.getProfile = function(user){
-    url = "http://localhost:3000/api/persona/" + user
+    url = serviceURL + "/persona/" + user
     return $http.get(url).then(function(response) {
         return response;
     });
